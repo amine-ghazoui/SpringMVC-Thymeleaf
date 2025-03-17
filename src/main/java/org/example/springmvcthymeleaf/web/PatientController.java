@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class PatientController {
     public String delete(Long id, int page, int size) {
 
         patientRepository.deleteById(id);
-        return "redirect:/index?page=" + page + "&size=" + size;
+        return "redirect:/index?page=" + page + "&size="+ size;
     }
 
     @GetMapping("formPatient")
@@ -50,6 +51,7 @@ public class PatientController {
         return "patientForm";
     }
 
+    @PostMapping
     public String save (Model model,@Valid Patient patient,
                         @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "") String keyword) {
@@ -57,4 +59,25 @@ public class PatientController {
         patientRepository.save(patient);
         return "redirect:/index?page="+page+"&keyword="+keyword;
     }
+
+    @GetMapping("/admin/editPatient")
+    public String editPatient(Model model, Long id, String keyword, int page){
+
+        Patient patient = patientRepository.findById(id).orElse(null);
+
+        if(patient == null) throw new RuntimeException("Patient not found");
+
+        model.addAttribute("patient", patient);
+        model.addAttribute("page", page);
+        model.addAttribute("keyword", keyword);
+
+        return "editPatient";
+    }
+
+    @GetMapping("/ ")
+    public String home(){
+
+        return "redirect:/user/index";
+    }
+
 }
