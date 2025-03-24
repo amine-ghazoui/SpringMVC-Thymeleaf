@@ -26,7 +26,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.formLogin(Customizer.withDefaults());
+        http.formLogin(form ->form.loginPage("/login").defaultSuccessUrl("/").permitAll());
+
         http.authorizeHttpRequests(ar -> ar.requestMatchers("/admin/**").hasRole("ADMIN"));
         http.authorizeHttpRequests(ar -> ar.requestMatchers("/user/**").hasRole("USER"));
         http.authorizeHttpRequests(ar -> ar.requestMatchers("/webjars/**", "/h2-console/**").permitAll());
