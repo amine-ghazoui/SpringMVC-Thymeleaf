@@ -37,7 +37,9 @@
                         <td th:text="${p.malade}"></td>
                         <td th:text="${p.score}"></td>
                         <td>
-                            <a onclick="return confirm('Etes vous sur ?')" class="btn btn-danger" th:href="@{/delete(id = ${p.id}, keyword=${keyword}, page = ${pageCurrent})}">Delete</a>
+                            <a onclick="return confirm('Etes vous sur ?')" class="btn btn-danger"
+                               th:href="@{/delete(id = ${p.id}, keyword=${keyword}, page = ${pageCurrent}, size = 5)}">Delete
+                            </a>
                         </td>
                         <td>
                             <a class="btn btn-success" th:href="@{/editPatient(id = ${p.id}, keyword=${keyword}, page = ${pageCurrent})}">Edit</a>
