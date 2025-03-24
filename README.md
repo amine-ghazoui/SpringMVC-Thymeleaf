@@ -26,6 +26,23 @@ It allows you to **manage a list of patients** with the following features:
 
 ---
 
+## 🔐 Security Implementation
+
+The application includes secure authentication with:
+
+- **User roles**: ADMIN and USER
+- **Protected routes**:
+  - `/admin/**` → Accessible only to ADMIN
+  - `/patients/**` → Accessible to authenticated users
+- **Password encryption** using BCrypt
+- **CSRF protection** enabled
+- **Secure session management**
+
+### Login Credentials (for testing):
+- **Admin**: admin / admin123
+- **User**: user / user123
+
+---
 
 ## Features
 
@@ -37,7 +54,34 @@ It allows you to **manage a list of patients** with the following features:
 4. **Delete a Patient**: Users can delete a patient from the list.
 5. **Additional Improvements**: Added functionalities such as updating patient information.
 
-### Part 2: Templates and Validation
+### Part 2: Security & Templates
 
-1. **Create a Page Template**: Use Thymeleaf to create reusable templates for the application pages.
-2. **Form Validation**: Patient input forms are validated to ensure data correctness before being saved.
+1. **Spring Security Integration**:
+   - Secure authentication
+   - Role-based authorization
+   - Custom login/logout pages
+
+2. **Thymeleaf Templates**:
+   - Reusable page layouts
+   - Security-aware fragments (show/hide elements based on roles)
+   - CSRF token integration
+
+3. **Form Validation**:
+   - Client-side validation with Thymeleaf
+   - Server-side validation with Spring Validator
+   - Custom error messages
+
+---
+
+## 📸 Screenshots
+
+![image](https://github.com/user-attachments/assets/c8e37082-0135-4a1f-a0ee-5d6d41603f59)
+
+![image](https://github.com/user-attachments/assets/1127aef4-e55c-4335-b4ef-3acc4b2284d7)
+![image](https://github.com/user-attachments/assets/5e5e8185-b321-439f-a6d3-355b4bd8cc43)
+![image](https://github.com/user-attachments/assets/d5dc6a39-f0da-4d26-9f58-d1f0b56c35cf)
+![image](https://github.com/user-attachments/assets/50107f0c-c565-446d-a741-2e1e7fc5b91d)
+
+
+
+
