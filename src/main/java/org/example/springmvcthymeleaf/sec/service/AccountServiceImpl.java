@@ -26,7 +26,8 @@ public class AccountServiceImpl implements AccountService {
         AppUser appUser = appUserRepository.findByUsername(username);
 
         if (appUser != null) {
-            throw new RuntimeException("User already exists");
+            // Retourne l'utilisateur existant au lieu de lever une exception
+            return appUser;
         }
 
         if (!password.equals(confirmPassword)) {
@@ -39,24 +40,24 @@ public class AccountServiceImpl implements AccountService {
                 .password(passwordEncoder.encode(password))
                 .email(email)
                 .build();
-        AppUser savedAppUser =  appUserRepository.save(appUser);
-
-        return savedAppUser;
+        return appUserRepository.save(appUser);
     }
 
     @Override
     public AppRole addNewRole(String role) {
-
+        // Vérifie si le rôle existe déjà
         AppRole appRole = appRoleRepository.findById(role).orElse(null);
 
-        if(appRole != null) {
-            throw new RuntimeException("Role already exists");
+        if (appRole != null) {
+            // Retourne le rôle existant au lieu de lever une exception
+            return appRole;
         }
 
-        AppRole saveedAppRole = AppRole.builder()
+        // Crée un nouveau rôle si inexistant
+        appRole = AppRole.builder()
                 .role(role)
                 .build();
-        return saveedAppRole;
+        return appRoleRepository.save(appRole);
     }
 
     @Override
