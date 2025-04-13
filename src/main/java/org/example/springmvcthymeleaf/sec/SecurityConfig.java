@@ -1,6 +1,8 @@
 package org.example.springmvcthymeleaf.sec;
 
 
+import lombok.AllArgsConstructor;
+import org.example.springmvcthymeleaf.sec.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +19,15 @@ import org.springframework.security.web.SecurityFilterChain;
 import javax.sql.DataSource;
 
 @Configuration
+// Configuration de la sécurité de l'application
 @EnableWebSecurity
+// Configuration de la sécurité des méthodes (annotation @PreAuthorize, @PostAuthorize, etc.)
 @EnableMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+    private UserDetailServiceImpl userDetailsServiceImpl;
 
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
@@ -48,6 +53,12 @@ public class SecurityConfig {
         http.authorizeHttpRequests(ar -> ar.requestMatchers("/user/**").hasRole("USER"));
         http.authorizeHttpRequests(ar -> ar.requestMatchers("/webjars/**", "/h2-console/**").permitAll());
         http.authorizeHttpRequests(ar -> ar.anyRequest().authenticated());
+        // Gestion des exceptions
+        http.exceptionHandling(eh -> eh
+                .accessDeniedPage("/notAuthorized") // Redirige vers une page d'erreur 403
+        );
+
+        http.userDetailsService(userDetailsServiceImpl);
 
         return http.build();
     }
