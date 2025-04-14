@@ -30,17 +30,30 @@ It allows you to **manage a list of patients** with the following features:
 
 The application includes secure authentication with:
 
-- **User roles**: ADMIN and USER
+- **User roles**: `ADMIN` and `USER`
 - **Protected routes**:
-  - `/admin/**` → Accessible only to ADMIN
+  - `/admin/**` → Accessible only to `ADMIN`
   - `/patients/**` → Accessible to authenticated users
-- **Password encryption** using BCrypt
+- **Password encryption** using **BCrypt**
 - **CSRF protection** enabled
 - **Secure session management**
 
-### Login Credentials (for testing):
-- **Admin**: admin / admin123
-- **User**: user / user123
+---
+
+### ✅ Authentication Types Implemented
+
+This project demonstrates **three different types of authentication mechanisms** provided by Spring Security:
+
+1. **In-Memory Authentication** – for quick testing with hardcoded users.
+2. **JDBC Authentication** – using a relational database to manage users and roles.
+3. **UserDetailsService Authentication** – custom user details service for more control over authentication logic.
+
+---
+
+### 🔑 Login Credentials (for testing)
+
+- **Admin**: `admin` / `admin123`
+- **User**: `user` / `user123`
 
 ---
 
